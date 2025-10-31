@@ -1,0 +1,32 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement } from './counterSlice.js';
+
+const GrandChild = () => {
+  const count = useSelector((state) => state.value);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+    </div>
+  );
+};
+
+const Child = () => {
+  return <GrandChild />;
+};
+
+const Parent = () => {
+  return <Child />;
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Parent />
+  </React.StrictMode>
+);
